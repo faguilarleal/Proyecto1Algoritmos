@@ -1,3 +1,5 @@
+package Modelo;
+
 public class Quote {
     public Quote(){
 
