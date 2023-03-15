@@ -16,7 +16,7 @@ public class Quote {
         return cad;
     }
     //Metodo que devuelve como String cada elemento luego de la palabra QUOTE o '
-    public String QUOTE(ArrayList<String> expresion){
+    public String QUOTE(ArrayList<Object> expresion){
     	String quote = "";
     	for(int i =1; i<expresion.size();i++) 
     	{
@@ -24,5 +24,20 @@ public class Quote {
     		quote += expresion.get(i) + "";
     	}
     	return quote.trim(); //Retorna quote borrando espacios en blanco del principio o fin de la expresion
+    }
+
+    /**
+     * Convierte una lista de objetos en un string
+     * @param expresion
+     * @return
+     */
+    public String quote(ArrayList<Object> expresion){
+        StringBuilder sb = new StringBuilder();
+        for (Object str : expresion) {
+            sb.append((String) str);
+            sb.append(" ");
+        }
+
+        return "( "+ sb +" )";
     }
 }

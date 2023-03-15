@@ -1,3 +1,5 @@
+package Modelo;
+
 import java.util.*;
 public class SetQ {
 	//Constructor
@@ -7,7 +9,7 @@ public class SetQ {
 	//Metodo para asignar un valor a una variable
 	public void SETQ(Defvar defvar, ArrayList<String> expresion) 
 	{
-		HashMap<String, String> variables = defvar.getVariables();
+		/*HashMap<String, String> variables = defvar.getVariable("");
 		//Condicional que evalua que la expresion para definir variable cumpla con los requisitos
 		boolean b = (expresion.size() <= 3) ? true:false ;
 		// Si la expresion consta de las 3 partes necesarias, palabra clave SETQ, Variable, Valor, se asocia variable y valor con un hashmap
@@ -23,6 +25,7 @@ public class SetQ {
 			} 
 		}else {
 			System.out.println("Para asignar un valor a la variable, debe ingresar SET! + variable + valor");		}
+	*/
 	}
-	
+
 }

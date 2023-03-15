@@ -1,7 +1,8 @@
+package Controlador;
+
 import java.util.Scanner;
 import java.util.regex.*;
 import java.util.*;
-package Controlador;
 
 public class ValidarExpresiones {
     Scanner in = new Scanner(System.in);
@@ -22,10 +23,10 @@ public class ValidarExpresiones {
             c2 ++;
        }
     }{
-        if (c1 != c2){
+       /* if (c1 != c2){
             System.out.println("La expresión no es válida, revise si cerró todos los paréntesis de la expresión ingresada");
     }else{
         System.out.println("Validación completa");
-    }
+    }*/
     }
 }

@@ -1,24 +1,38 @@
+package Modelo;
+
+import Modelo.Stack.StackVector;
+
 import java.util.*;
 
 public class Defvar {
-	//Constructor
-	public Defvar() {
-		
-	}
+
+	private HashMap<String, StackVector<String>> variables = new HashMap<>();
+
 	//Metodo para definir una variable
-	public void DEFVAR(ArrayList<String> expresion) {
-		HashMap<String,String> variables = new HashMap<>();
-		//Si la expresion tiene unicamente 2 elementos, la palabra reservada DEFVAR y la variable, guarda la variable en un hashmap con valor null
-		if(expresion.size() <=2) {
-			String var = expresion.get(1);
-			variables.put(var, null);
-		//Si la expresion tiene 3 elementos, la palabra reservada, variable y su valor, los guarda ambos en el hashmap
-		}else if(expresion.size() == 3) {
-			String var = expresion.get(1);
-			String arg = expresion.get(2);
-			variables.put(var, arg);
-		}else {
-			System.out.println("No se ha podido realizar");
+	public void Defvar(String nombre) {
+		StackVector<String> valor = new StackVector<>();
+		variables.put(nombre, valor);
+	}
+
+	public String getVariable(String nombre, boolean temp) {
+		StackVector<String> valores = variables.get(nombre);
+		String valor;
+		return valor = temp ? valores.pop() : valores.peek();
+	}
+
+	public void SetQ(String nombre, String valor, boolean temp){
+		StackVector<String> valores = variables.get(nombre);
+		if (temp){
+			valores.push(valor);
 		}
+		else {
+			valores.pop();
+			valores.push(valor);
+		}
+		variables.put(nombre, valores);
+	}
+
+	public boolean Existe(String nombre){
+		return variables.containsKey(nombre);
 	}
 }
