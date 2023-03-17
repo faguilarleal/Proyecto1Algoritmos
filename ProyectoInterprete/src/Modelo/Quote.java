@@ -15,7 +15,7 @@ public class Quote {
     		//Se empieza a concatenar los elementos de expresion en quote, luego de la primera posicion que es donde se encuentra la palabra reservada QUOTE
     		quote += expresion.get(i) + "";
     	}
-    	return quote.trim(); //Retorna quote borrando espacios en blanco del principio o fin de la expresion
+    	return quote; //Retorna quote borrando espacios en blanco del principio o fin de la expresion
     }
 
     /**
