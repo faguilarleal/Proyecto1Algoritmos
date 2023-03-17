@@ -202,8 +202,8 @@ public class EvaluarFuncion
 
 	public String booleanLisp(String f, String a, String b){
 		boolean v = false;
-		int A = Integer.parseInt(a);
-		int B = Integer.parseInt(b);
+		double A = Double.parseDouble(a);
+		double B = Double.parseDouble(b);
 		switch (f){
 			case "EQUAL":
 				v = a.equals(b);
