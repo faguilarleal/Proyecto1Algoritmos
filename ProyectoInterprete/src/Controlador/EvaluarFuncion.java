@@ -53,7 +53,7 @@ public class EvaluarFuncion
 					}
 
 				}
-
+			// ARREGLAR
 				// si es quote
 				else if (funct.equals("QUOTE") || funct.equals("'")) {
 					if (atomExp(obj.get(1))) {
@@ -93,6 +93,7 @@ public class EvaluarFuncion
 
 				// cond
 				else if (funct.equals("COND")) {
+					// REGRESA T O NIL
 					String cond = evaluarlista((ArrayList<Object>) obj.get(1), tempV);
 					if (cond.equals("T")){
 						if (atomExp(obj.get(2))){
@@ -137,7 +138,7 @@ public class EvaluarFuncion
 					defV.Defvar((String) obj.get(1));
 					return (String) obj.get(1);
 				}
-				else if (funct.equals("SETQ")) {
+				else if (funct.equals("SETQ")) {// valuar si es atom
 					String variable = (String) obj.get(1);
 					String valor = (String) obj.get(2);
 					defV.SetQ(variable, valor, tempV);
@@ -145,9 +146,11 @@ public class EvaluarFuncion
 				}
 				else if (funct.equals("DEFUN")){
 					String nombre = (String) obj.get(1);
-					if (functClass.funcionExiste(nombre)){
+					if (functClass.funcionExiste(nombre)){ // verifica que exista la funcion
 						return "FUNCION EXISTENTE";
 					}else {
+
+						// se crea la funcion
 						ArrayList<Object> valores = new ArrayList<>();
 						valores.add(obj.get(2));
 						valores.add(obj.get(3));
@@ -168,7 +171,8 @@ public class EvaluarFuncion
 							}
 							defV.SetQ(nameV,valorV, false);
 							return evaluarlista(exp, false);
-						}else{
+						}
+						else{
 						// agarrar los valores de parametros
 							if (variables.size() == params.size()){
 								for (int i = 0; i < variables.size(); i++) {

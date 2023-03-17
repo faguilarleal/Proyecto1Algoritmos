@@ -18,7 +18,7 @@ public class Defvar {
 		if (existe(nombre)){
 			StackVector<String> valores = variables.get(nombre);
 			String valor;
-			return valor = temp ? valores.pop() : valores.peek();
+			return valor = temp ? valores.pop() : valores.peek();// peek si es permanente, pop si es temporal
 		}
 		else {
 			return null;

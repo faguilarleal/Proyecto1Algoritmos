@@ -1,3 +1,5 @@
+package Modelo;
+
 import java.util.*;
 public class Lista {
 	private static String st = new String();
