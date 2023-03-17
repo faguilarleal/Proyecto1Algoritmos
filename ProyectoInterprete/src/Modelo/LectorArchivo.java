@@ -8,13 +8,14 @@ public class LectorArchivo {
 		ArrayList<String> expresion = new ArrayList<>();
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader("archivo.txt"));
-			StringBuilder linea = new StringBuilder();
-			int restante = lector.read();
-			while(restante != -1) {
-				linea.append((char)restante);
-				restante = lector.read();
+			String linea =  lector.readLine();
+			while(linea != null) {
+				StringTokenizer tokens = new StringTokenizer("() \t\r\n"); 
+				while(tokens.hasMoreTokens()) {
+					String st = tokens.nextToken();
+					expresion.add(st);
+				}
 			}
-			expresion.add(linea.toString());
 		}catch(IOException e){
 			System.out.println("No es posible leer el archivo");
 		}
