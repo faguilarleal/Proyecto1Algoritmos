@@ -6,15 +6,7 @@ public class Quote {
     public Quote(){
 
     }
-    //Metodo para convertir el texto ingresado a todo mayusculas
-    public String mayus(String cadena){
-        String cad="";
-        for (int n = 0;n <cadena.length (); n ++) { 
-            char c = cadena.charAt (n);
-            cad+=Character.toUpperCase(c);
-        }
-        return cad;
-    }
+
     //Metodo que devuelve como String cada elemento luego de la palabra QUOTE o '
     public String QUOTE(ArrayList<Object> expresion){
     	String quote = "";

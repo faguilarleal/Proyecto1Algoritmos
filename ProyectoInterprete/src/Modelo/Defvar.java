@@ -15,9 +15,14 @@ public class Defvar {
 	}
 
 	public String getVariable(String nombre, boolean temp) {
-		StackVector<String> valores = variables.get(nombre);
-		String valor;
-		return valor = temp ? valores.pop() : valores.peek();
+		if (existe(nombre)){
+			StackVector<String> valores = variables.get(nombre);
+			String valor;
+			return valor = !temp ? valores.pop() : valores.peek();
+		}
+		else {
+			return null;
+		}
 	}
 
 	public void SetQ(String nombre, String valor, boolean temp){
@@ -26,13 +31,17 @@ public class Defvar {
 			valores.push(valor);
 		}
 		else {
-			valores.pop();
-			valores.push(valor);
+			if (valores.size() == 0){
+				valores.push(valor);
+			}else{
+				valores.pop();
+				valores.push(valor);
+			}
 		}
 		variables.put(nombre, valores);
 	}
 
-	public boolean Existe(String nombre){
+	public boolean existe(String nombre){
 		return variables.containsKey(nombre);
 	}
 }
