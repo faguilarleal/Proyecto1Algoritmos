@@ -9,7 +9,6 @@ import java.util.*;
 
 public class EvaluarFuncion
 {
-
 	private Quote q = new Quote();
 	private OperacionesAritmeticas operArit = new OperacionesAritmeticas();
 	private Functions functClass = new Functions();
@@ -124,7 +123,11 @@ public class EvaluarFuncion
 				}
 
 				else if (funct.equals("ATOM")){
-
+					if (atomExp(obj.get(1))){
+						return "T";
+					}else {
+						return "NIL";
+					}
 				}
 
 				else if (funct.equals("LIST")) {
@@ -157,23 +160,31 @@ public class EvaluarFuncion
 						ArrayList<Object> exp = functClass.getExp(funct);
 						ArrayList<Object> variables = functClass.getParams(funct);
 						ArrayList<Object> params = (ArrayList<Object>) obj.get(1);
-						// agarrar los valores de parametros
-						if (variables.size() == params.size()){
-							for (int i = 0; i < variables.size(); i++) {
-								String nameV = (String) variables.get(i);
-								String valorV = (String) params.get(i);
-								if (!defV.existe(nameV)){
-									defV.Defvar(nameV);
-								}
-								defV.SetQ(nameV,valorV, true);
+						if (((String) params.get(0)).equals("+") || ((String) params.get(0)).equals("-") || ((String) params.get(0)).equals("/")|| ((String) params.get(0)).equals("*")){
+							String valorV = evaluarlista(params, false);
+							String nameV = (String) variables.get(0);
+							if (!defV.existe(nameV)){
+								defV.Defvar(nameV);
 							}
-						return evaluarlista(exp, true);
+							defV.SetQ(nameV,valorV, false);
+							return evaluarlista(exp, false);
+						}else{
+						// agarrar los valores de parametros
+							if (variables.size() == params.size()){
+								for (int i = 0; i < variables.size(); i++) {
+									String nameV = (String) variables.get(i);
+									String valorV = (String) params.get(i);
+									if (!defV.existe(nameV)){
+										defV.Defvar(nameV);
+									}
+									defV.SetQ(nameV,valorV, false);
+								}
+							return evaluarlista(exp, false);
 
-						} else {
-							return "NUMERO DE PARAMETROS INVALIDO";
+							} else {
+								return "NUMERO DE PARAMETROS INVALIDO";
+							}
 						}
-
-
 					}else{
 						return "FUNCION INVALIDA";
 					}
@@ -184,7 +195,6 @@ public class EvaluarFuncion
 			}
 		}
 
-		return null;
 	}
 
 	/**
