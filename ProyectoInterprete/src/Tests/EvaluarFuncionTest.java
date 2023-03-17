@@ -13,9 +13,9 @@ class EvaluarFuncionTest {
     void evaluarlista() {
         EvaluarExpresion e = new EvaluarExpresion();
         EvaluarFuncion f = new EvaluarFuncion();
-        //String exp = "( DEFUN HOLA ( N ) ( COND ( < 10 2 ) ) )";
+        //String exp = "( COND ( < 10 2 ) 10 2 )";
         //String exp = "( DEFUN PRUEBA ( X ) ( ( COND ( > X 2 ) X 2 ) ) )";
-        String exp = "( DEFUN FIBO ( N ) ( ( COND ( ( < N 2 ) N ) ( ( + ( FIBO ( - N 1 ) ) ( FIBO ( - N 2 ) ) ) ) ) ) )";
+        String exp = "( DEFUN FIBO ( N ) ( COND ( < N 2 ) N ( + ( FIBO ( - N 1 ) ) ( FIBO ( - N 2 ) ) ) )";
         //String exp = "( DEFUN CONVERTIR ( FG ) ( ( * ( - FG 32 ) ( / 5 9 ) ) ) )";
         String exp2 = "( FIBO ( 7 ) )";
         //String exp3 = "( DEFVAR X )";
@@ -43,5 +43,38 @@ class EvaluarFuncionTest {
         Object p = "a";
         System.out.println(f.isInteger(p));
     }
+
+    @Test
+    void AritmeticasTest(){
+        EvaluarExpresion e = new EvaluarExpresion();
+        String exp = "( + ( * 3 5 ) ( ( / 10 5 ) ( - 4 3 ) ) )";
+        String r = e.evalExp(exp);
+        System.out.println(r);
+    }
+
+    @Test
+    void CondTest(){
+        EvaluarExpresion e = new EvaluarExpresion();
+        String exp = "( COND ( < 10 5 ) 2 3 )";
+        String r = e.evalExp(exp);
+        System.out.println(r);
+    }
+
+    @Test
+    void EQUALTEST(){
+        EvaluarExpresion e = new EvaluarExpresion();
+        String exp = "( < 10 ( * 4 6 ) )";
+        String r = e.evalExp(exp);
+        System.out.println(r);
+    }
+
+    @Test
+    void t(){
+        EvaluarExpresion e = new EvaluarExpresion();
+        String exp = "( 3 )";
+        String r = e.evalExp(exp);
+        System.out.println(r);
+    }
+
 
 }
