@@ -15,11 +15,11 @@ class EvaluarFuncionTest {
         EvaluarFuncion f = new EvaluarFuncion();
         //String exp = "( COND ( < 10 2 ) 10 2 )";
         //String exp = "( DEFUN PRUEBA ( X ) ( ( COND ( > X 2 ) X 2 ) ) )";
-        //String exp = "( ( DEFUN FIBO ( N ) ( ( COND ( < N 2 ) N ( + ( FIBO ( - N 1 ) ) ( FIBO ( - N 2 ) ) ) ) ) )";
+        String exp = "( ( DEFUN FIBO ( N ) ( ( COND ( < N 2 ) N ( + ( FIBO ( - N 1 ) ) ( FIBO ( - N 2 ) ) ) ) ) )";
         //String exp = "( DEFUN CONVERTIR ( FG ) ( ( * ( - FG 32 ) ( / 5 9 ) ) ) )";
-        //String exp2 = "( FIBO ( 7 ) )";
-        String exp = "( DEFVAR X )";
-        String exp2 = "( SETQ X 10 )";
+        String exp2 = "( FIBO 7 )";
+        //String exp = "( DEFVAR X )";
+        //String exp2 = "( SETQ X 10 )";
         ArrayList<String> expL = new ArrayList<String>(Arrays.asList(exp.split(" ")));
         ArrayList<String> expL2 = new ArrayList<String>(Arrays.asList(exp2.split(" ")));
         //ArrayList<String> expL3 = new ArrayList<String>(Arrays.asList(exp3.split(" ")));

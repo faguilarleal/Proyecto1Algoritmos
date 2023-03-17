@@ -53,7 +53,7 @@ public class EvaluarFuncion
 					}
 
 				}
-			// ARREGLAR
+				// ARREGLAR
 				// si es quote
 				else if (funct.equals("QUOTE") || funct.equals("'")) {
 					if (atomExp(obj.get(1))) {
@@ -121,30 +121,23 @@ public class EvaluarFuncion
 						}
 					}
 
-				}
-
-				else if (funct.equals("ATOM")){
+				} else if (funct.equals("ATOM")){
 					if (atomExp(obj.get(1))){
 						return "T";
 					}else {
 						return "NIL";
 					}
-				}
-
-				else if (funct.equals("LIST")) {
+				} else if (funct.equals("LIST")) {
 					return null;
-				}
-				else if (funct.equals("DEFVAR")) {
+				} else if (funct.equals("DEFVAR")) {
 					defV.Defvar((String) obj.get(1));
 					return (String) obj.get(1);
-				}
-				else if (funct.equals("SETQ")) {// valuar si es atom
+				} else if (funct.equals("SETQ")) {// valuar si es atom
 					String variable = (String) obj.get(1);
 					String valor = (String) obj.get(2);
 					defV.SetQ(variable, valor, tempV);
 					return (String) obj.get(1);
-				}
-				else if (funct.equals("DEFUN")){
+				} else if (funct.equals("DEFUN")){
 					String nombre = (String) obj.get(1);
 					if (functClass.funcionExiste(nombre)){ // verifica que exista la funcion
 						return "FUNCION EXISTENTE";
@@ -157,49 +150,36 @@ public class EvaluarFuncion
 						functClass.crearFuncion(nombre, valores);
 						return null;
 					}
-				}
-				else {
+				} else {
+					//
 					if (functClass.funcionExiste(funct)){
 						ArrayList<Object> exp = functClass.getExp(funct);
 						ArrayList<Object> variables = functClass.getParams(funct);
-						ArrayList<Object> params = (ArrayList<Object>) obj.get(1);
-						if (((String) params.get(0)).equals("+") || ((String) params.get(0)).equals("-") || ((String) params.get(0)).equals("/")|| ((String) params.get(0)).equals("*")){
-							String valorV = evaluarlista(params, false);
-							String nameV = (String) variables.get(0);
-							if (!defV.existe(nameV)){
-								defV.Defvar(nameV);
-							}
-							defV.SetQ(nameV,valorV, false);
-							return evaluarlista(exp, false);
+						Object params = obj.get(1);
+						String nameV = (String) variables.get(0);
+						String valorV;
+						if (atomExp(params)) {
+							valorV = (String) params;
+						} else {
+							valorV = evaluarlista((ArrayList<Object>) params, false);
 						}
-						else{
-						// agarrar los valores de parametros
-							if (variables.size() == params.size()){
-								for (int i = 0; i < variables.size(); i++) {
-									String nameV = (String) variables.get(i);
-									String valorV = (String) params.get(i);
-									if (!defV.existe(nameV)){
-										defV.Defvar(nameV);
-									}
-									defV.SetQ(nameV,valorV, false);
-								}
-							return evaluarlista(exp, false);
-
-							} else {
-								return "NUMERO DE PARAMETROS INVALIDO";
-							}
+						if (!defV.existe(nameV)){
+							defV.Defvar(nameV);
 						}
+						defV.SetQ(nameV,valorV, false);
+						return evaluarlista(exp, false);
 					}else{
 						return "FUNCION INVALIDA";
 					}
 				}
 
-			} else {
+			}
+			else {
 				return evaluarlista((ArrayList<Object>) obj.get(0), tempV);
 			}
 		}
-
 	}
+
 
 	/**
 	 * Es para verificar si el valor es un atom o si se necesita recursividad
@@ -235,7 +215,7 @@ public class EvaluarFuncion
 
 	public boolean isInteger(Object token){
 		boolean isInt = false;
-		try	{
+		try {
 			Double numero = (Double.parseDouble((String) token));
 			isInt = true;
 		}catch (NumberFormatException e){

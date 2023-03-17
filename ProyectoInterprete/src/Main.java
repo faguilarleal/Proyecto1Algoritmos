@@ -1,3 +1,7 @@
+import Vista.Compilador;
+
+import java.io.IOException;
+
 /*
 Profesor: Douglas Leonel Barrios
 Auxiliares: Fernanda Esquivel y Francisco Castillo
@@ -11,7 +15,8 @@ Curso: Algoritmos y Estructuras de datos
 Sección: 20
 */
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+    public static void main(String[] args) throws IOException {
+        Compilador c = new Compilador();
+        c.menu();
     }
 }
