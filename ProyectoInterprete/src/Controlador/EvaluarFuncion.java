@@ -9,13 +9,19 @@ import java.util.*;
 
 public class EvaluarFuncion
 {
+	String n;
 	private Quote q = new Quote();
 	private OperacionesAritmeticas operArit = new OperacionesAritmeticas();
 	private Functions functClass = new Functions();
 
 	private Defvar defV = new Defvar();
 
-
+	/**
+	 * Funcion que evalua la lista de objetos para returnar el valor
+	 * @param obj
+	 * @param tempV
+	 * @return
+	 */
 	public String evaluarlista(ArrayList<Object> obj, boolean tempV) {
 
 		if (obj.isEmpty()) {
@@ -136,7 +142,7 @@ public class EvaluarFuncion
 					String variable = (String) obj.get(1);
 					String valor = (String) obj.get(2);
 					defV.SetQ(variable, valor, tempV);
-					return (String) obj.get(1);
+					return (String) obj.get(2);
 				} else if (funct.equals("DEFUN")){
 					String nombre = (String) obj.get(1);
 					if (functClass.funcionExiste(nombre)){ // verifica que exista la funcion
@@ -148,7 +154,7 @@ public class EvaluarFuncion
 						valores.add(obj.get(2));
 						valores.add(obj.get(3));
 						functClass.crearFuncion(nombre, valores);
-						return null;
+						return "";
 					}
 				} else {
 					//

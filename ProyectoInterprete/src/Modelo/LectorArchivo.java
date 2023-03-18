@@ -10,9 +10,10 @@ public class LectorArchivo {
 		try {
 			Scanner lector = new Scanner(new FileReader("./src/Texto.txt"));
 			while(lector.hasNextLine()) {
-				linea += lector.nextLine();
+				linea = lector.nextLine();
+				expresion.add(linea);
 			}
-			expresion.add(linea);
+
 		}catch(IOException e){
 			System.out.println("No es posible leer el archivo");
 		}
