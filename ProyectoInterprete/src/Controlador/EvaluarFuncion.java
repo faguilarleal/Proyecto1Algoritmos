@@ -14,7 +14,7 @@ public class EvaluarFuncion
 	private OperacionesAritmeticas operArit = new OperacionesAritmeticas();
 	private Functions functClass = new Functions();
 
-	private Defvar defV = new Defvar();
+	//private Defvar defV = new Defvar();
 
 	/**
 	 * Funcion que evalua la lista de objetos para returnar el valor
@@ -22,8 +22,8 @@ public class EvaluarFuncion
 	 * @param tempV
 	 * @return
 	 */
-	public String evaluarlista(ArrayList<Object> obj, boolean tempV) {
-
+	public String evaluarlista(ArrayList<Object> obj, boolean tempV, Defvar defV) {
+                
 		if (obj.isEmpty()) {
 			return null;
 		} else {
@@ -36,10 +36,10 @@ public class EvaluarFuncion
 					Object o2 = obj.get(2);
 					// recursividad, en caso de que haya otra evaluacion
 					if (!atomExp(o1)) {
-						o1 = evaluarlista((ArrayList<Object>) o1, tempV);
+						o1 = evaluarlista((ArrayList<Object>) o1, tempV,defV);
 					}
 					if (!atomExp(o2)) {
-						o2 = evaluarlista((ArrayList<Object>) o2, tempV);
+						o2 = evaluarlista((ArrayList<Object>) o2, tempV,defV);
 					}
 					// si son variables
 					if (isInteger(o1) & isInteger(o2)){ // si los dos son int solo se opera
@@ -72,12 +72,16 @@ public class EvaluarFuncion
 				// si es equal
 				else if (funct.equals("EQUAL") || funct.equals("<") || funct.equals(">")) {
 					Object o1 = obj.get(1);
+                                        
 					Object o2 = obj.get(2);
+                                        
 					if (!atomExp(o1)) {
-						o1 = evaluarlista((ArrayList<Object>) o1, tempV);
+						o1 = evaluarlista((ArrayList<Object>) o1, tempV,defV);
+                                                
 					}
 					if (!atomExp(o2)) {
-						o2 = evaluarlista((ArrayList<Object>) o2, tempV);
+						o2 = evaluarlista((ArrayList<Object>) o2, tempV,defV);
+                                                
 					}
 					// si es variable
 					if (isInteger(o1) & isInteger(o2)){ // si los dos son int solo se opera
@@ -85,12 +89,15 @@ public class EvaluarFuncion
 					}else {
 						if (!isInteger(o1)) { //si o1 es variable buscarla en hashmap
 							o1 = defV.getVariable((String) o1, tempV);
+
 						}
 						if (!isInteger(o2)) { //si o2 es variable buscarla en hashmap
 							o2 = defV.getVariable((String) o2, tempV);
+
 						}
 						if (o1 != null & o2 != null) { // en caso de que ninguna de las dos returne null se opera con los valores obtenidos
-							return booleanLisp(funct, (String) o1, (String) o2);// return T / NIL
+
+                                                    return booleanLisp(funct, (String) o1, (String) o2);// return T / NIL
 						} else {
 							return "INVALID VARIABLE";
 						}
@@ -100,27 +107,33 @@ public class EvaluarFuncion
 				// cond
 				else if (funct.equals("COND")) {
 					// REGRESA T O NIL
-					String cond = evaluarlista((ArrayList<Object>) obj.get(1), tempV);
+
+					String cond = evaluarlista((ArrayList<Object>) obj.get(1), tempV,defV);
+
 					if (cond.equals("T")){
+
 						if (atomExp(obj.get(2))){
 							String valorVerdadero = (String) obj.get(2);
+                                                        
 							if (!isInteger(valorVerdadero)) { //si o1 es variable buscarla en hashmap
 								valorVerdadero = defV.getVariable((String) valorVerdadero, tempV);
 							}
+
 							return (String) valorVerdadero;
 						}else {
-							return evaluarlista((ArrayList<Object>) obj.get(2), tempV);
+							return evaluarlista((ArrayList<Object>) obj.get(2), tempV,defV);
 						}
 					} else {
 						if (obj.size() == 4){
 							if (atomExp(obj.get(3))){
 								String valorFalso = (String) obj.get(3);
+
 								if (!isInteger(valorFalso)) { //si o1 es variable buscarla en hashmap
 									valorFalso = defV.getVariable((String) valorFalso, tempV);
 								}
 								return (String) valorFalso;
 							}else {
-								return evaluarlista((ArrayList<Object>) obj.get(3), tempV);
+								return evaluarlista((ArrayList<Object>) obj.get(3), tempV,defV);
 							}
 						}else {
 							return "";
@@ -134,8 +147,6 @@ public class EvaluarFuncion
 						return "NIL";
 					}
 				} else if (funct.equals("LIST")) {
-					System.out.println(obj.get(1));
-					System.out.println(obj.get(2));
 					return null;
 				} else if (funct.equals("DEFVAR")) {
 					defV.Defvar((String) obj.get(1));
@@ -161,6 +172,7 @@ public class EvaluarFuncion
 				} else {
 					//
 					if (functClass.funcionExiste(funct)){
+                                                Defvar VarsForFunction = new Defvar();
 						ArrayList<Object> exp = functClass.getExp(funct);
 						ArrayList<Object> variables = functClass.getParams(funct);
 						Object params = obj.get(1);
@@ -169,20 +181,24 @@ public class EvaluarFuncion
 						if (atomExp(params)) {
 							valorV = (String) params;
 						} else {
-							valorV = evaluarlista((ArrayList<Object>) params, false);
+							valorV = evaluarlista((ArrayList<Object>) params, false,defV);
 						}
-						if (!defV.existe(nameV)){
-							defV.Defvar(nameV);
+
+						if (!VarsForFunction.existe(nameV)){
+							VarsForFunction.Defvar(nameV);
 						}
-						defV.SetQ(nameV,valorV, false);
-						return evaluarlista(exp, false);
+
+                                                VarsForFunction.SetQ(nameV, valorV, false);
+						//defV.SetQ(nameV,valorV, false);
+						return evaluarlista(exp, false,VarsForFunction);
 					}else{
 						return "FUNCION INVALIDA";
 					}
 				}
 
-			} else {
-				return evaluarlista((ArrayList<Object>) obj.get(0), tempV);
+			}
+			else {
+				return evaluarlista((ArrayList<Object>) obj.get(0), tempV,defV);
 			}
 		}
 	}

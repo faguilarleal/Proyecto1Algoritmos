@@ -1,10 +1,13 @@
 package Controlador;
+import Modelo.Defvar;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class EvaluarExpresion {
 
+    Defvar df = new Defvar();
     private EvaluarFuncion evalFuncion = new EvaluarFuncion();
     /**
      * Se crea una lista de objetos para que se pueda hacer una lista de listas (cuantas sean necesarias)
@@ -56,7 +59,7 @@ public class EvaluarExpresion {
     public String evalExp(String exp){
         ArrayList<String> expL = new ArrayList<String>(Arrays.asList(exp.split(" ")));
         ArrayList<Object> p1 = parseExpresion(expL); // expresion parseada
-        return evalFuncion.evaluarlista(p1,false);
+        return evalFuncion.evaluarlista(p1,false, df);
     }
 
 

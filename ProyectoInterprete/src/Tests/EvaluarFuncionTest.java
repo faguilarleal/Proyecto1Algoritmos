@@ -29,11 +29,11 @@ class EvaluarFuncionTest {
         ArrayList<Object> p2 = e.parseExpresion(expL2);
        // ArrayList<Object> p3 = e.parseExpresion(expL3);
         //ArrayList<Object> p4 = e.parseExpresion(expL4);
-        String r = f.evaluarlista((ArrayList<Object>) p1.get(0), false);
-        String r2 = f.evaluarlista((ArrayList<Object>) p2.get(0), false);
+        //String r = f.evaluarlista((ArrayList<Object>) p1.get(0), false);
+        //String r2 = f.evaluarlista((ArrayList<Object>) p2.get(0), false);
        // String r3 = (String) f.evaluarlista((ArrayList<Object>) p3.get(0), false);
         //String r4 = (String) f.evaluarlista((ArrayList<Object>) p4.get(0), false);
-        System.out.println(r2);
+        //System.out.println(r2);
        // System.out.println(r4);
     }
 
