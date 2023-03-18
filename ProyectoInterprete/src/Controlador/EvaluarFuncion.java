@@ -134,6 +134,8 @@ public class EvaluarFuncion
 						return "NIL";
 					}
 				} else if (funct.equals("LIST")) {
+					System.out.println(obj.get(1));
+					System.out.println(obj.get(2));
 					return null;
 				} else if (funct.equals("DEFVAR")) {
 					defV.Defvar((String) obj.get(1));
@@ -179,8 +181,7 @@ public class EvaluarFuncion
 					}
 				}
 
-			}
-			else {
+			} else {
 				return evaluarlista((ArrayList<Object>) obj.get(0), tempV);
 			}
 		}

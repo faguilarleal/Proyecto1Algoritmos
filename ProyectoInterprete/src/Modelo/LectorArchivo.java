@@ -3,7 +3,11 @@ import java.util.*;
 import java.io.*;
 
 public class LectorArchivo {
-	
+	/**
+	 * Lee el archivo
+	 * @return
+	 * @throws IOException
+	 */
 	public ArrayList<String> LeerArchivo() throws IOException{
 		ArrayList<String> expresion = new ArrayList<>();
 		String linea = "";

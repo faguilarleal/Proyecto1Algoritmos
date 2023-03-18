@@ -9,6 +9,12 @@ import java.util.List;
 public class Functions {
     private HashMap<String, ArrayList<Object>> funciones = new HashMap<>();
 
+    /**
+     * Funcion para las funciones
+     * Guarda en Hashmaps
+     * @param nombre
+     * @param values
+     */
     public void crearFuncion(String nombre, ArrayList<Object> values){
         funciones.put(nombre, values);
     }

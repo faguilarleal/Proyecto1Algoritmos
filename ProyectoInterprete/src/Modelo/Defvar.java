@@ -8,6 +8,11 @@ public class Defvar {
 
 	private HashMap<String, StackVector<String>> variables = new HashMap<>();
 
+	/**
+	 * Funcion para las variables
+	 * Se guardan en un HashMap
+	 * @param nombre
+	 */
 	//Metodo para definir una variable
 	public void Defvar(String nombre) {
 		StackVector<String> valor = new StackVector<>();
@@ -25,6 +30,12 @@ public class Defvar {
 		}
 	}
 
+	/**
+	 *
+	 * @param nombre String del nombre
+	 * @param valor String del valor
+	 * @param temp boolean
+	 */
 	public void SetQ(String nombre, String valor, boolean temp){
 		StackVector<String> valores = variables.get(nombre);
 		if (temp){
